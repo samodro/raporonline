@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/xampp/htdocs/_meong3/application/controllers/ptk.php</file>
+            <file>file:/C:/xampp/htdocs/_meong3/application/controllers/rombel.php</file>
+            <file>file:/C:/xampp/htdocs/_meong3/application/models/m_rombel.php</file>
+            <file>file:/C:/xampp/htdocs/_meong3/application/views/ptk/penilaian_olehGuru.php</file>
+            <file>file:/C:/xampp/htdocs/_meong3/asset/dispendik/js/cobatab.js</file>
+            <file>file:/C:/xampp/htdocs/_meong3/application/views/ptk/menuWaliKelas.php</file>
+            <file>file:/C:/xampp/htdocs/_meong3/application/views/ptk/penilaian_olehGurunew.php</file>
+            <file>file:/C:/xampp/htdocs/_meong3/application/views/ptk/DataEkskul_siswa.php</file>
+            <file>file:/C:/xampp/htdocs/_meong3/application/models/m_mapel.php</file>
+            <file>file:/C:/xampp/htdocs/_meong3/application/models/m_nilai.php</file>
+            <file>file:/C:/xampp/htdocs/_meong3/application/views/ptk/pilihRombel.php</file>
+            <file>file:/C:/xampp/htdocs/_meong3/application/controllers/penilaian.php</file>
+            <file>file:/C:/xampp/htdocs/_meong3/application/views/ptk/header.php</file>
+            <file>file:/C:/xampp/htdocs/_meong3/application/views/ptk/footer.php</file>
+            <file>file:/C:/xampp/htdocs/_meong3/application/models/m_penilaian.php</file>
+            <file>file:/C:/xampp/htdocs/_meong3/application/models/m_deskripsi_nilai.php</file>
+            <file>file:/C:/xampp/htdocs/_meong3/application/models/m_ptk.php</file>
+        </group>
+    </open-files>
+</project-private>

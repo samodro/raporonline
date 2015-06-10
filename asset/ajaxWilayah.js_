@@ -1,0 +1,149 @@
+$(document).ready(function () 
+{
+    //pilih Mata Pelajaran
+    //pilih KI -- kompetisi
+    //pilih Metode
+    //pilih indikator
+    //pilih KD
+
+    
+       $.ajax({
+                url: $("#pilihKecamatan").attr("href"),
+                 type:'GET',
+                 dataType: 'json',
+                 success: function(results){
+                        console.log(JSON.stringify(results));
+                        $.each(results, function (i, item) {
+                        $('#pilihKecamatan').append($('<option>', { 
+                            value: item.KODE_WILAYAH,
+                            text : item.NAMA_WILAYAH
+                        }));
+                    });
+
+                  } 
+                  });
+    
+    /*   
+      $('#pilihJenis').change(function(){
+          $.when(
+               $.ajax({
+                    url: 'http://172.16.3.101/index.php/sekolah/'+$('#pilihJenis').val(),
+                     type:'GET',
+                     dataType: 'html',
+                     success: function(results){
+
+                   $('#result').html(results);
+
+                      } 
+                      }),
+               $.ajax({
+                    url: 'http://172.16.3.101/index.php/sekolah/rekap/'+$('#pilihJenis').val(),
+                     type:'GET',
+                     dataType: 'json',
+                     success: function(json){
+                   console.log(JSON.stringify(json[0].jumlah));
+                    $("#jmlsekolah").html("Jumlah : "+json[0].jumlah);
+                   }
+                      })
+                ) 
+           
+
+            });*/
+    
+        
+    
+    $('#pilihKecamatan').change(function(){
+               $.ajax({
+                url: $("#pilihKelurahan").attr("href")+"/"+$('#pilihKecamatan').val(),
+                 type:'GET',
+                 dataType: 'json',
+                 success: function(results){
+                        $('#pilihKelurahan').html($('<option>',{
+                            value:'null',
+                            text:'-- Pilih Kelurahan --'
+                        }));
+                        console.log(JSON.stringify(results));
+                        $.each(results, function (i, item) {
+                        $('#pilihKelurahan').append($('<option>', { 
+                            value: item.KODE_WILAYAH,
+                            text : item.NAMA_WILAYAH
+                        }));
+                    });
+
+                  } 
+                  });
+    }); 
+    
+    
+    $('#cariBtn').click(function(){
+               $('#result').html("<img class=\"center-block\" src=\""+CI_ROOT+"/assets/img/ajax_loading.gif\">");      
+               $.ajax({
+                url: $(this).attr("href")+"/"+$('#pilihJenis').val().trim()+
+                     '/'+$('#pilihKecamatan').val().trim()+
+                     '/'+$('#pilihKelurahan').val().trim(),
+                 type:'GET',
+                 dataType: 'html',
+                 success: function(results){
+                    $('#result').html(results);
+                   
+                  } 
+                });
+        });
+
+        $('#tambahKurikulum').click(function(e){
+          e.preventDefault();
+          var id_kurikulum = $("#idKurikulum").html();
+          var nama_kurikulum = $("#namaKurikulum").val();
+          var nomor = $("#kurikulumTable tr:last-child td").html()[0];
+          var row = 
+                  '<tr> \
+                      <td class="center">'+nomor+'</td> \
+                      <td class="center">'+id_kurikulum+'</td> \
+                      <td class="center">'+nama_kurikulum+'</td> \
+                      <td class="center"> \
+                        <a href="DataKurikulum/"><button class="btn btn-mini btn-warning">Sunting</button></a> \
+                        <a href="hapusDataKurikulum/'+id_kurikulum+'"><button class="btn btn-mini btn-danger">Hapus</button></a> \
+                      </td> \
+                    </tr>';
+               var id_kurikulum = $("#idKurikulum").html();
+               var nama_kurikulum = $("#nama_kurikulum").val();
+               $.ajax({
+                 url: $(this).attr("href"),
+                 type:'POST',
+                 data:{'nama_syarat':$("#namaKurikulum").val()},
+                 success: function(results){
+                    alert('Kurikulum berhasil ditambah ! ');
+                    location.reload();
+                  } 
+                });
+        });
+
+        $('#editKurikulum').click(function(e){
+          e.preventDefault();
+          var id_kurikulum = $("#idKurikulum").html();
+          var nama_kurikulum = $("#namaKurikulum").val();
+          var nomor = $("#kurikulumTable tr:last-child td").html()[0];
+          var row = 
+                  '<tr> \
+                      <td class="center">'+nomor+'</td> \
+                      <td class="center">'+id_kurikulum+'</td> \
+                      <td class="center">'+nama_kurikulum+'</td> \
+                      <td class="center"> \
+                        <a href="DataKurikulum/"><button class="btn btn-mini btn-warning">Sunting</button></a> \
+                        <a href="hapusDataKurikulum/'+id_kurikulum+'"><button class="btn btn-mini btn-danger">Hapus</button></a> \
+                      </td> \
+                    </tr>';
+               var id_kurikulum = $("#idKurikulum").html();
+               var nama_kurikulum = $("#nama_kurikulum").val();
+               $.ajax({
+                 url: $(this).attr("href"),
+                 type:'POST',
+                 data:{"nama_syarat":$("#idKurikulum").val(), "nama_kurikulum": $("#namaKurikulum").val()}
+                });
+        });
+    
+    
+});
+
+
+
