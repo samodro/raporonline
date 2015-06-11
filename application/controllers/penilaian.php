@@ -243,6 +243,8 @@ class Penilaian extends CI_Controller {
         $data['guru'] = $this->m_ptk->getDataDiriWaliKelas($this->username);
         $data['mapel'] = $this->m_mengajar->getMapel($this->username);
         $data['id_rombel']= $this->m_rombel->getRombel_ByWaliKelas($this->username);
+        
+        $data['rombel'] = $this->m_rombel->getDataRombelAll_ById($data['id_rombel']['ID_ROMBEL']);
         $this->load->view('ptk/menuWaliKelas', $data);
         $data['DaftarSiswa_WaliKelas'] = $this->m_rombel->getList_siswaKelas( $data['id_rombel']['ID_ROMBEL']);        
         $data['listEkskul']=$this->m_penilaian->getListEkskul();
@@ -254,28 +256,69 @@ class Penilaian extends CI_Controller {
 
     public function DKN_siswa(){
         $this->load->view('ptk/header');
-        $id_rombel= $this->m_rombel->getRombel_ByWaliKelas($this->username);
-        $this->load->view('ptk/menuWaliKelas', $id_rombel);
-        $data['DaftarSiswa_WaliKelas'] = $this->m_rombel->getList_siswaKelas($id_rombel['ID_ROMBEL']);
+        $data['guru'] = $this->m_ptk->getDataDiriWaliKelas($this->username);
+        $data['mapel'] = $this->m_mengajar->getMapel($this->username);
+        $data["id_rombel"]= $this->m_rombel->getRombel_ByWaliKelas($this->username);
+        $data['rombel'] = $this->m_rombel->getDataRombelAll_ById($data['id_rombel']['ID_ROMBEL']);
+        $this->load->view('ptk/menuWaliKelas', $data);
+        $data['DaftarSiswa_WaliKelas'] = $this->m_rombel->getList_siswaKelas($data['id_rombel']['ID_ROMBEL']);
+        
         $this->load->view('ptk/DKN_siswa', $data);
         $this->load->view('ptk/footer');
     }
 
     public function DataPrestasi_siswa(){
         $this->load->view('ptk/header');
-        $id_rombel= $this->m_rombel->getRombel_ByWaliKelas($this->username);
-        $this->load->view('ptk/menuWaliKelas', $id_rombel);
-        $data['DaftarSiswa_WaliKelas'] = $this->m_rombel->getList_siswaKelas($id_rombel['ID_ROMBEL']);
+        $data['guru'] = $this->m_ptk->getDataDiriWaliKelas($this->username);
+        $data['mapel'] = $this->m_mengajar->getMapel($this->username);
+        $data["id_rombel"]= $this->m_rombel->getRombel_ByWaliKelas($this->username);
+        $data['rombel'] = $this->m_rombel->getDataRombelAll_ById($data['id_rombel']['ID_ROMBEL']);
+        $this->load->view('ptk/menuWaliKelas', $data);
+        $data['DaftarSiswa_WaliKelas'] = $this->m_rombel->getList_siswaKelas($data['id_rombel']['ID_ROMBEL']);
         $this->load->view('ptk/DataPrestasi_siswa', $data);
         $this->load->view('ptk/footer');
     }
 
     public function DataKenaikanKelas_siswa(){
         $this->load->view('ptk/header');
-        $id_rombel= $this->m_rombel->getRombel_ByWaliKelas($this->username);
-        $this->load->view('ptk/menuWaliKelas', $id_rombel);
-        $data['DaftarSiswa_WaliKelas'] = $this->m_rombel->getList_siswaKelas($id_rombel['ID_ROMBEL']);
+        $data['guru'] = $this->m_ptk->getDataDiriWaliKelas($this->username);
+        $data['mapel'] = $this->m_mengajar->getMapel($this->username);
+        $data["id_rombel"]= $this->m_rombel->getRombel_ByWaliKelas($this->username);
+        $data['rombel'] = $this->m_rombel->getDataRombelAll_ById($data['id_rombel']['ID_ROMBEL']);
+        $this->load->view('ptk/menuWaliKelas', $data);
+        $data['DaftarSiswa_WaliKelas'] = $this->m_rombel->getList_siswaKelas($data['id_rombel']['ID_ROMBEL']);
         $this->load->view('ptk/DataKenaikanKelas_siswa', $data);
+        $this->load->view('ptk/footer');
+    }
+    
+    public function AkhlakdanKepribadian_siswa(){
+        $this->load->view('ptk/header');
+        
+        
+        $data["id_rombel"]= $this->m_rombel->getRombel_ByWaliKelas($this->username);
+        $data['rombel'] = $this->m_rombel->getDataRombelAll_ById($data['id_rombel']['ID_ROMBEL']);
+        $data["listSiswa"]=$this->m_rombel->getList_siswaKelas($data['id_rombel']['ID_ROMBEL']);
+        $data["mapel"] = $this->m_mapel->getDataMapel($this->uri->segment(3));
+         
+        
+         
+        $data["guru"] = $this->m_ptk->getDataPtk($this->username);
+        
+        
+        $data["penilaian"] = $this->m_penilaian->getListIndikator_penilaianparent($data["mapel"]["KODE_MAPEL"], $this->uri->segment(5), $this->uri->segment(4)); 
+        $data["level"] = $this->uri->segment(5);
+        $data["kode"] = $this->uri->segment(4);
+        
+        
+        
+        
+        $this->load->view('ptk/menuWaliKelas', $data);
+        
+        $this->load->view('ptk/AkhlakdanKepribadian_Siswa',$data);
+        
+        
+        
+        //$this->load->view('ptk/AkhlakdanKepribadian_siswa', $data);
         $this->load->view('ptk/footer');
     }
 
@@ -486,6 +529,36 @@ class Penilaian extends CI_Controller {
         }
         
         redirect(base_url()."index.php/penilaian/PenilainGuruMataPelajaran/".$this->input->post('id_rombel')."/".$this->input->post('kode')."/".$this->input->post('level'));
+    }
+    
+    public function saveNilaiAkhlak()
+    {
+        $listSiswa=$this->m_rombel->getList_siswaKelas($this->input->post('id_rombel'));
+        
+        foreach ($listSiswa as $a)
+        {
+            $nilai = $this->m_nilai->getNilaibyKodeandId($this->input->post('kode_penilaian'), $a->ID_SISWA);
+            $riwayat = $this->m_nilai->getRiwayat($a->ID_SISWA, $this->input->post('id_rombel'));
+            
+            if($nilai==null)
+            {
+                $data = array(
+				'ID_NILAI' => '',
+				'ID_RIWAYAT' => $riwayat["ID_RIWAYAT"],
+                                'KODE_PENILAIAN' => $this->input->post('kode_penilaian'),
+				'TANGGAL' =>  date('Y-m-d'),
+				'NILAI' => $this->input->post($a->ID_SISWA)
+			);
+                $this->m_nilai->insert_nilai($data);
+            }
+            else
+            {
+                $nilai["NILAI"] =  $this->input->post($a->ID_SISWA);
+                $this->m_nilai->edit_nilainew($nilai);
+            }
+        }
+        
+        redirect(base_url()."index.php/penilaian/AkhlakdanKepribadian_Siswa/61/".$this->input->post('kode')."/".$this->input->post('level'));
     }
 
     public function getEkskulList1($mst_id)

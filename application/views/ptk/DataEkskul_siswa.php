@@ -27,9 +27,14 @@
 					<li class="tab-link " data-tab="tab-1"><a href="index.php/rombel/WaliKelas">Daftar Siswa</a></li>
 					<li class="tab-link " data-tab="tab-2"><a href="index.php/penilaian/DKN_siswa">DKN Siswa</a></li>
 					<li class="tab-link current" data-tab="tab-3">Ekstrakulikuler</li>
+                                        
 					<li class="tab-link" data-tab="tab-4"><a href="index.php/absensi/kehadiran_siswa">Absensi</a></li>
 					<li class="tab-link" data-tab="tab-4"><a href="index.php/penilaian/DataPrestasi_siswa">Prestasi</a></li>
 					<li class="tab-link" data-tab="tab-5"><a href="index.php/penilaian/DataKenaikanKelas_siswa">Kenaikan Kelas</a></li>
+                                        <?php if(strpos($rombel["NAMA_KURIKULUM"],'2006')!==false): ?>
+                                                
+                                        <li class="tab-link" data-tab="tab-6"><a href="index.php/penilaian/AkhlakdanKepribadian_siswa/61/01/2">Akhlak dan Kepribadian</a></li>
+                                        <?php endif; ?>
 				</ul>
 						
 				<div id="tab-3" class="tab-content current">

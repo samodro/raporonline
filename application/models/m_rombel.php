@@ -7,7 +7,7 @@
 
 		function getList_siswaKelas($id_rombel){
 			$query=$this->db->query("SELECT `ID_RIWAYAT`, `riwayat_kelas`.ID_ROMBEL, `riwayat_kelas`.ID_SISWA, 
-				`NAMA_SISWA`, `NIS_SISWA`
+				`NAMA_SISWA`, `NIS_SISWA`, AGAMA_SISWA
 				FROM `riwayat_kelas` inner join `mst_siswa` inner join `rombongan_belajar` 
 				WHERE `riwayat_kelas`.ID_SISWA = `mst_siswa`.ID_SISWA and 
 				`rombongan_belajar`.ID_ROMBEL = `riwayat_kelas`.ID_ROMBEL

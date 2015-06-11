@@ -12,7 +12,7 @@
 
 <div id='cssmenu'>
 <ul>
-   <li><a href="index.php/siswaguru/berandaGuru"><span>Home</span></a></li>
+   <li><a href="index.php/ptk/berandaGuru"><span>Home</span></a></li>
    <li class='last'><a href="index.php/ptk/pilihrombelguru"><span><?php echo $mapel["NAMA_MAPEL"]; ?></span></a></li>
    <!-- start: User Dropdown -->
                   <li class="dropdown">

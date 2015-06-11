@@ -26,6 +26,11 @@
 					<li class="tab-link current" data-tab="tab-4">Absensi</li>
 					<li class="tab-link" data-tab="tab-4"><a href="index.php/penilaian/DataPrestasi_siswa">Prestasi</a></li>
 					<li class="tab-link" data-tab="tab-5"><a href="index.php/penilaian/DataKenaikanKelas_siswa">Kenaikan Kelas</a></li>
+                                        <?php if(strpos($rombel["NAMA_KURIKULUM"],'2006')!==false): ?>
+                                                
+                                        <li class="tab-link" data-tab="tab-6"><a href="index.php/penilaian/AkhlakdanKepribadian_siswa/61/01/2">Akhlak dan Kepribadian</a></li>
+                                        <?php endif; ?>
+					
 				</ul>
 						
 				<div id="tab-4" class="tab-content current">
@@ -51,7 +56,7 @@
 										<tr>
 											<td><?php echo $no++ ?></td>
 											<td class="center"><?php echo $a->NAMA_SISWA; ?></td>
-											<?php foreach ($jenisAbsensi as $a)	{?>
+											<?php foreach ($jenisAbsensi as $s)	{?>
 											<td class="center">
 												<input class="input-mini focused" name="jumlah" id="focusedInput" type="text" value="">
 											</td>  

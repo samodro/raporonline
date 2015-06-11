@@ -149,7 +149,11 @@ class Rombel extends CI_Controller
                 $data['guru'] = $this->m_ptk->getDataDiriWaliKelas($this->username);
                 
                 $data['mapel'] = $this->m_mengajar->getMapel($this->username);
+                $data['id_rombel']= $this->m_rombel->getRombel_ByWaliKelas($this->username);
+
+                $data['rombel'] = $this->m_rombel->getDataRombelAll_ById($data['id_rombel']['ID_ROMBEL']);
                 $this->load->view('ptk/menuWaliKelas', $data);
+
 		$this->load->view('ptk/DaftarSiswa_WaliKelas', $data);
 		$this->load->view('ptk/footer');
 	}
