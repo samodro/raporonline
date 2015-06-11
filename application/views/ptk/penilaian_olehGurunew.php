@@ -348,16 +348,16 @@ body
 														<td><?php echo $no++ ?></td>
 														<td class="center"><?php echo $a->NAMA_SISWA; ?></td>
 														<td class="center">
-																  <input type="radio" name="<?php echo $a->ID_SISWA?>" id="optionsRadios" value="1" <?php if($siswa!=null && $siswa["NILAI"]==1) echo "checked" ; ?> <?php if($state==true) echo "disabled"; ?> 	>															
+																  <input style="margin-left:0px;" type="radio" name="<?php echo $a->ID_SISWA?>" id="optionsRadios" value="1" <?php if($siswa!=null && $siswa["NILAI"]==1) echo "checked" ; ?> <?php if($state==true) echo "disabled"; ?> 	>															
 														</td> 
 														<td class="center">
-																  <input type="radio" name="<?php echo $a->ID_SISWA?>" id="optionsRadios" value="2" <?php if($siswa!=null && $siswa["NILAI"]==2) echo "checked" ;?>  <?php if($state==true) echo "disabled"; ?> >																
+																  <input type="radio" style="margin-left:0px;" name="<?php echo $a->ID_SISWA?>" id="optionsRadios" value="2" <?php if($siswa!=null && $siswa["NILAI"]==2) echo "checked" ;?>  <?php if($state==true) echo "disabled"; ?> >																
 														</td>
 														<td class="center">
-																  <input type="radio" name="<?php echo $a->ID_SISWA?>" id="optionsRadios" value="3" <?php if($siswa!=null && $siswa["NILAI"]==3) echo "checked" ;?> <?php if($state==true) echo "disabled"; ?> >																
+																  <input type="radio" style="margin-left:0px;" name="<?php echo $a->ID_SISWA?>" id="optionsRadios" value="3" <?php if($siswa!=null && $siswa["NILAI"]==3) echo "checked" ;?> <?php if($state==true) echo "disabled"; ?> >																
 														</td>
 														<td class="center" >
-																  <input type="radio" name="<?php echo $a->ID_SISWA?>" id="optionsRadios" value="4" <?php if($siswa!=null && $siswa["NILAI"]==4) echo "checked" ; if($siswa==null) echo "checked" ;?> <?php if($state==true) echo "disabled"; ?> >															
+																  <input type="radio" style="margin-left:0px;" name="<?php echo $a->ID_SISWA?>" id="optionsRadios" value="4" <?php if($siswa!=null && $siswa["NILAI"]==4) echo "checked" ; if($siswa==null) echo "checked" ;?> <?php if($state==true) echo "disabled"; ?> >															
 														</td>                               
 													</tr>   
 													<?php 

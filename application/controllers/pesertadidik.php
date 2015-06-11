@@ -121,9 +121,9 @@ class Pesertadidik extends CI_Controller
 	{
 		$this->load->view('siswa/headerSiswa');
 		$this->load->view('siswa/menuSiswa');
-		//$dataSiswa= $this->m_pd->get_data_diri_siswa($this->username);
+		$data["siswa"]= $this->m_pd->get_data_diri_siswa($this->username);
 				
-		$this->load->view('siswa/berandaSiswa', $dataSiswa);
+		$this->load->view('siswa/berandaSiswa', $data);
 		$this->load->view('siswa/footerSiswa');
 	}	
 

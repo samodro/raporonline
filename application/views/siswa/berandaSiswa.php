@@ -28,11 +28,12 @@
 								<ul class="dashboard-list">
 									<li>
 										<a href="#">
-											<img class="avatar" alt="Dennis Ji" src="asset/siswa/img/avatar.png">
+											<img class="avatar" alt="Dennis Ji" src="<?php echo base_url()."asset/siswaguru/img/avatar.png";?>">
 										</a>
-										<strong>Nama:</strong> <?php echo $NAMA_PD ?><br>
-										<strong>Asal Sekolah:</strong>  <?php echo $NAMA_SEKOLAH; ?><br>
-										<strong>Hak Akses:</strong> <span class="label label-success"> <?php echo $AKSES_LEVEL; ?></span>                                  
+                                                                            
+										<strong>Nama:</strong> <?php echo $siswa["NAMA_SISWA"] ?><br>
+										<strong>Asal Sekolah:</strong>  <?php echo $siswa["NAMA_SEKOLAH"] ?><br>
+										<strong>Hak Akses:</strong> <span class="label label-success"> <?php echo $siswa["AKSES_LEVEL"]; ?></span>                                  
 									</li>
 									
 								</ul>
