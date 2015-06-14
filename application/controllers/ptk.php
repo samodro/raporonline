@@ -19,7 +19,7 @@ class ptk extends CI_Controller
 		$this->load->model('m_sekolah');
                 $this->load->model('m_mengajar');
                 $this->load->model('m_rombel');
-
+                $this->load->model('m_mapel');
                     
 		$this->id_ptk = $this->session->userdata('ID_PENGGUNA');
 		$this->kota_asal = $this->session->userdata('KODE_WILAYAH');
@@ -33,8 +33,9 @@ class ptk extends CI_Controller
 		
 		
                 
-                $data['guru'] = $this->m_ptk->getDataDiriGuru($this->username);
-                $data['mapel'] = $this->m_mengajar->getMapel($this->username);
+                $data['guru'] = $this->m_ptk->getDataDiriWaliKelas($this->username);
+                $data['mapel1'] = $this->m_mengajar->getMapel2($this->username);
+                
                
                 $this->load->view('ptk/menuguru',$data);
 		$this->load->view('ptk/berandaGuru', $data);
@@ -47,7 +48,9 @@ class ptk extends CI_Controller
                 $data = array();
                 
 		$data['guru'] = $this->m_ptk->getDataDiriWaliKelas($this->username);
-                $data['mapel'] = $this->m_mengajar->getMapel($this->username);
+                $data['mapel1'] = $this->m_mengajar->getMapel2($this->username);
+                
+                
                 
 		$this->load->view('ptk/menuWaliKelas', $data);
 		$this->load->view('ptk/berandaGuru' , $data);
@@ -309,8 +312,8 @@ class ptk extends CI_Controller
                 $data["mapel"] = $this->m_mengajar->getMapel($this->username);
                 
                 $data["rombel"] = $this->m_rombel->getRombel_ByPengajar($this->username);
-                        
-              
+                
+               
                 
 		$this->load->view('ptk/header');
                 $this->load->view('ptk/menuGuru',$data);
@@ -325,14 +328,25 @@ class ptk extends CI_Controller
                 $data = array();
 
                 $data["guru"] = $this->m_ptk->getDataPtk($this->username);
-                $data["mapel"] = $this->m_mengajar->getMapel($this->username);
+                $data['mapel1'] = $this->m_mengajar->getMapel2($this->username);
                 
-                $data["rombel"] = $this->m_rombel->getRombel_ByPengajar($this->username);
-                        
+                
+                $data["mapel"] = $this->m_mapel->getDataMapel($this->uri->segment(3));
+                
+                
+                $data["rombel"] = $this->m_rombel->getRombel_ByPengajarMapel($this->username,$this->uri->segment(3));
+                
               
                 
 		$this->load->view('ptk/header');
-                $this->load->view('ptk/menuWaliKelas',$data);
+                if($this->akses_level=='wali kelas')
+                {
+                    $this->load->view('ptk/menuWaliKelas',$data);
+                }
+                else if($this->akses_level=='guru mata pelajaran')
+                {
+                    $this->load->view('ptk/menuguru',$data);
+                }
                 $this->load->view('ptk/pilihRombel',$data);
                 $this->load->view('ptk/footer');
                 

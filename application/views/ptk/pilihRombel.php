@@ -33,9 +33,10 @@
                                                         $ci->load->model('m_penilaian');  
                                                         
                                                         $penilaian = $ci->m_penilaian->getListIndikator_penilaian($mapel["KODE_MAPEL"], "1");
-                                                        //echo $penilaian[0]->KODE_JENIS_PENILAIAN;
+                                                        
+                                                        
                                                         for ($i = 0; $i < count($rombel); $i++): ?>
-							<a class="quick-button-small span1" href="<?php echo base_url()."index.php/penilaian/PenilainGuruMataPelajaran/".$rombel[$i]->ID_ROMBEL."/". $penilaian[0]->KODE_JENIS_PENILAIAN."/2"; ?>">
+							<a class="quick-button-small span1" href="<?php echo base_url()."index.php/penilaian/PenilainGuruMataPelajaran/".$rombel[$i]->ID_ROMBEL."/". $penilaian[0]->KODE_JENIS_PENILAIAN."/2/".$mapel["KODE_MAPEL"]; ?>">
 								<i class="icon-group"></i>
 								<p><?php echo $rombel[$i]->NAMA_ROMBEL; ?></p>
 							</a>

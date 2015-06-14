@@ -77,6 +77,16 @@ and `rombongan_belajar`.ID_SEKOLAH = `mst_sekolah`.ID_SEKOLAH
                     return $query->result();
 			
                 }
+                
+                public function getRombel_ByPengajarMapel($username, $kode_mapel)
+                {
+                    $query=$this->db->query("select distinct rb.* from mengajar m, pengguna p, mst_ptk mp, rombongan_belajar rb 
+                        where p.username = mp.nip_ptk and mp.id_ptk = m.id_ptk 
+                        and m.id_rombel = rb.id_rombel 
+				and `USERNAME` = '$username' and m.kode_mapel = '$kode_mapel' ");
+
+                    return $query->result();
+                }
 
 		public function getMengajar_ByIdSekolah($id_sekolah){
 			$query=$this->db->query("SELECT `ID_MENGAJAR`, `mengajar`.ID_ROMBEL, `NAMA_ROMBEL`, `mengajar`.KODE_MAPEL, `NAMA_MAPEL`, `mengajar`.ID_PTK, `NAMA_PTK`, `KKM_NILAI` 

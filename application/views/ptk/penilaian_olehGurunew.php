@@ -241,7 +241,7 @@ body
                                          ?>
                                          
                                         <li>						
-						<a href="<?php echo base_url()."index.php/penilaian/PenilainGuruMataPelajaran/".$rombel["ID_ROMBEL"]."/". substr($kode, 0, $a) ."/".($i++); ?>"><?php echo $s_penilaian["INDIKATOR_PENILAIAN"];?></a>
+						<a href="<?php echo base_url()."index.php/penilaian/PenilainGuruMataPelajaran/".$rombel["ID_ROMBEL"]."/". substr($kode, 0, $a) ."/".($i++)."/".$mapel["KODE_MAPEL"]; ?>"><?php echo $s_penilaian["INDIKATOR_PENILAIAN"];?></a>
 						
 					
                                         
@@ -264,7 +264,7 @@ body
                                 <ul class="tabs" id="pilihKI">
                                     
                                         <?php for ($i=0; $i<count($penilaian); $i++): ?>
-                                   <a style="color: inherit;" href="<?php echo base_url()."index.php/penilaian/PenilainGuruMataPelajaran/".$rombel["ID_ROMBEL"]."/". $penilaian[$i]->KODE_JENIS_PENILAIAN."/".($level+1)?>"><li class="tab-link tab-root " data-tab="tab-<?php echo $i+1; ?>">  <?php echo $penilaian[$i]->INDIKATOR_PENILAIAN;?>  </li></a>
+                                   <a style="color: inherit;" href="<?php echo base_url()."index.php/penilaian/PenilainGuruMataPelajaran/".$rombel["ID_ROMBEL"]."/". $penilaian[$i]->KODE_JENIS_PENILAIAN."/".($level+1)."/".$mapel["KODE_MAPEL"]?>"><li class="tab-link tab-root " data-tab="tab-<?php echo $i+1; ?>">  <?php echo $penilaian[$i]->INDIKATOR_PENILAIAN;?>  </li></a>
                                         <?php endfor; ?>					
 					<?php if($level==2): ?>
                                         <li class="tab-link tab-root " data-tab="tab-<?php echo $i+1; ?>">Hasil Akhir</li>
@@ -307,6 +307,7 @@ body
                                                                                                                 <input type="hidden" name="id_rombel" value="<?php echo $rombel["ID_ROMBEL"];?>">
                                                                                                                 <input type="hidden" name="level" value="<?php echo $level;?>">
                                                                                                                 <input type="hidden" name="kode" value="<?php echo $kode;?>">
+                                                                                                                <input type="hidden" name="kode_mapel" value="<?php echo $mapel["KODE_MAPEL"];?>">
 														<?php foreach ($listSiswa as $a)	{
                                                                                                                  $siswa = $ci->m_nilai->getNilaibyKodeandId($l_penilaian["KODE_PENILAIAN"], $a->ID_SISWA); 
                                                                                                                 
@@ -323,7 +324,7 @@ body
                                                                                                                     
                                                                                                                     
                                                                                                                     $c = 2;
-                                                                                                                    
+                                                                                                                    $state2 = false;
                                                                                                                     while(1): 
 
                                                                                                                     $s = $ci->m_penilaian->getPenilaian($mapel["KODE_MAPEL"],substr($kode, 0, $c));                                                                                                                     
@@ -331,6 +332,10 @@ body
                                                                                                                     if(strpos($s["INDIKATOR_PENILAIAN"],'Sendiri') || strpos($s["INDIKATOR_PENILAIAN"],'Teman') )
                                                                                                                     {
                                                                                                                         $state = true;
+                                                                                                                    }
+                                                                                                                    if(strpos($s["INDIKATOR_PENILAIAN"],'Teman') )
+                                                                                                                    {
+                                                                                                                        $state2 = true;
                                                                                                                     }
                                                                                                                     $c += 2;
                                                                                                                     endwhile;
@@ -389,6 +394,7 @@ body
                                                                                                                 <input type="hidden" name="id_rombel" value="<?php echo $rombel["ID_ROMBEL"];?>">
                                                                                                                 <input type="hidden" name="level" value="<?php echo $level;?>">
                                                                                                                 <input type="hidden" name="kode" value="<?php echo $kode;?>">
+                                                                                                                <input type="hidden" name="kode_mapel" value="<?php echo $mapel["KODE_MAPEL"];?>">
                                                                                                                 
 														<?php foreach ($listSiswa as $a)	{
                                                                                                                     $siswa = $ci->m_nilai->getNilaibyKodeandId($l_penilaian["KODE_PENILAIAN"], $a->ID_SISWA);
@@ -447,6 +453,7 @@ body
                                                                                                                 <input type="hidden" name="id_rombel" value="<?php echo $rombel["ID_ROMBEL"];?>">
                                                                                                                 <input type="hidden" name="level" value="<?php echo $level;?>">
                                                                                                                 <input type="hidden" name="kode" value="<?php echo $kode;?>">
+                                                                                                                <input type="hidden" name="kode_mapel" value="<?php echo $mapel["KODE_MAPEL"];?>">
 														<?php foreach ($listSiswa as $a)	{
                                                                                                                  $siswa = $ci->m_nilai->getNilaibyKodeandId($l_penilaian["KODE_PENILAIAN"], $a->ID_SISWA); 
                                                                                                                  if (strpos($mapel["NAMA_MAPEL"],'Agama') !== false) {

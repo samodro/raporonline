@@ -350,7 +350,11 @@ class Penilaian extends CI_Controller {
         
         $data["listSiswa"]=$this->m_rombel->getList_siswaKelas($this->uri->segment(3));
         $data["rombel"] = $this->m_rombel->getDataRombelAll_ById($this->uri->segment(3));
-        $data["mapel"] = $this->m_mengajar->getMapel($this->username);
+        $data['mapel1'] = $this->m_mengajar->getMapel2($this->username);
+                
+                
+        $data["mapel"] = $this->m_mapel->getDataMapel($this->uri->segment(6));
+                
                
          
         $data["guru"] = $this->m_ptk->getDataPtk($this->username);
@@ -528,7 +532,7 @@ class Penilaian extends CI_Controller {
             }
         }
         
-        redirect(base_url()."index.php/penilaian/PenilainGuruMataPelajaran/".$this->input->post('id_rombel')."/".$this->input->post('kode')."/".$this->input->post('level'));
+        redirect(base_url()."index.php/penilaian/PenilainGuruMataPelajaran/".$this->input->post('id_rombel')."/".$this->input->post('kode')."/".$this->input->post('level')."/".$this->input->post('kode_mapel'));
     }
     
     public function saveNilaiAkhlak()
