@@ -10,6 +10,7 @@
 			<!-- start: Content -->
 			<div id="content" class="span10">
 				<!--?php include ("navigation.php"); ?-->
+                                
 				<ul class="breadcrumb">
 					<li>
 						<i class="icon-home"></i>
@@ -18,7 +19,7 @@
 					</li>
 					<li>
 						<i class="icon-edit"></i>
-						<a href="walikelas.php">Wali kelas 7A</a>
+						<a href="walikelas.php">Wali Kelas <?php echo $rombel["NAMA_ROMBEL"]; ?></a>
 					</li>
 				</ul>
 					

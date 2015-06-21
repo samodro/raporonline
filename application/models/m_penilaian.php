@@ -24,6 +24,11 @@
                         return $query->result();
                 }
                 
+                function getListDiriSendiriAntarTeman($mapel){
+                        $query = $this->db->query("SELECT * FROM `mst_penilaian` WHERE KODE_MAPEL = '$mapel' and (INDIKATOR_PENILAIAN like '%diri sendiri%')");
+                        return $query->result();
+                }
+                
                 function getPenilaian($mapel, $kode_jenis_penilaian)
                 {
                     $query = $this->db->query("select * from mst_penilaian where kode_mapel = '$mapel' and kode_jenis_penilaian = '$kode_jenis_penilaian' ");

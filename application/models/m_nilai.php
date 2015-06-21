@@ -263,6 +263,29 @@
                             return null;
 		}
                 
+                function getNilaibyKodeandIdandUser($kode_penilaian, $id_siswa, $username){
+			$query=$this->db->query("SELECT  n.* FROM riwayat_kelas rk, "
+                                . "rombongan_belajar rb, mst_siswa mt, nilai n "
+                                . "where rk.id_siswa = mt.id_siswa and rb.id_rombel = "
+                                . "rk.id_rombel and n.id_riwayat = rk.id_riwayat "
+                                . "and n.kode_penilaian = '$kode_penilaian' and mt.id_siswa = '$id_siswa' and n.user = '$username' ");
+			$data=$query->result_array();
+                        if($data!=null)
+                            return $data[0];
+                        else
+                            return null;
+		}
+                
+                function getNilaibyKodeandIdTeman($kode_penilaian, $id_siswa){
+			$query=$this->db->query("SELECT  n.* FROM riwayat_kelas rk, "
+                                . "rombongan_belajar rb, mst_siswa mt, nilai n "
+                                . "where rk.id_siswa = mt.id_siswa and rb.id_rombel = "
+                                . "rk.id_rombel and n.id_riwayat = rk.id_riwayat "
+                                . "and n.kode_penilaian = '$kode_penilaian' and mt.id_siswa = '$id_siswa' ");
+			//$data=$query->result_array();
+                        return $query->result();
+		}
+                
                  function getNilaiEkskul($id_siswa){
 			$query=$this->db->query("SELECT  n.* FROM riwayat_kelas rk, "
                                 . "rombongan_belajar rb, mst_siswa mt, nilai n "

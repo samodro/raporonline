@@ -49,7 +49,9 @@ class ptk extends CI_Controller
                 
 		$data['guru'] = $this->m_ptk->getDataDiriWaliKelas($this->username);
                 $data['mapel1'] = $this->m_mengajar->getMapel2($this->username);
-                
+                $data['id_rombel']= $this->m_rombel->getRombel_ByWaliKelas($this->username);
+
+                $data['rombel'] = $this->m_rombel->getDataRombelAll_ById($data['id_rombel']['ID_ROMBEL']);
                 
                 
 		$this->load->view('ptk/menuWaliKelas', $data);
@@ -341,6 +343,9 @@ class ptk extends CI_Controller
 		$this->load->view('ptk/header');
                 if($this->akses_level=='wali kelas')
                 {
+                    $data['id_rombel']= $this->m_rombel->getRombel_ByWaliKelas($this->username);
+
+                    $data['rombel1'] = $this->m_rombel->getDataRombelAll_ById($data['id_rombel']['ID_ROMBEL']);
                     $this->load->view('ptk/menuWaliKelas',$data);
                 }
                 else if($this->akses_level=='guru mata pelajaran')

@@ -13,7 +13,18 @@
 <div id='cssmenu'>
 <ul>
    <li><a href="index.php/ptk/berandaWaliKelas"><span>Home</span></a></li>
-   <li><a href="index.php/rombel/WaliKelas"><span>Wali Kelas <?php echo $guru["NAMA_PTK"]; ?></span></a></li>
+   <li><a href="index.php/rombel/WaliKelas"><span>Wali Kelas <?php 
+   if(isset($rombel1))
+   {
+       echo $rombel1["NAMA_ROMBEL"];
+   }
+ else {
+       
+   echo $rombel["NAMA_ROMBEL"]; 
+ }
+ ?>
+           
+           </span></a></li>
    <li class="dropdown">
                      <a data-toggle="dropdown" href="#">
                         Penilaian

@@ -18,7 +18,7 @@
 					</li>
 					<li>
 						<i class="icon-edit"></i>
-						<a href="walikelas.php">Wali kelas 7A</a>
+						<a href="walikelas.php">Wali Kelas <?php echo $rombel["NAMA_ROMBEL"]; ?></a>
 					</li>
 				</ul>
 					

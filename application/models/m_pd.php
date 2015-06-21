@@ -75,6 +75,7 @@
 			);
 		}
 
+
 		function get_data_diri_siswa($username) {
 			
 			$query=$this->db->query("SELECT `mst_siswa`.ID_SEKOLAH, `NAMA_SEKOLAH`, 

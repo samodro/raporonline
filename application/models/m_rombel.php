@@ -6,14 +6,35 @@
 		}
 
 		function getList_siswaKelas($id_rombel){
-			$query=$this->db->query("SELECT `ID_RIWAYAT`, `riwayat_kelas`.ID_ROMBEL, `riwayat_kelas`.ID_SISWA, 
-				`NAMA_SISWA`, `NIS_SISWA`, AGAMA_SISWA
+			$query=$this->db->query("SELECT `ID_RIWAYAT`, `riwayat_kelas`.ID_ROMBEL, `riwayat_kelas`.ID_SISWA,
+				`NAMA_SISWA`, `NIS_SISWA`, AGAMA_SISWA, NISN_SISWA
 				FROM `riwayat_kelas` inner join `mst_siswa` inner join `rombongan_belajar` 
 				WHERE `riwayat_kelas`.ID_SISWA = `mst_siswa`.ID_SISWA and 
 				`rombongan_belajar`.ID_ROMBEL = `riwayat_kelas`.ID_ROMBEL
 				and `rombongan_belajar`.ID_ROMBEL  = '$id_rombel' ");
 			return $query->result();
 		}
+                
+               /* function getList_siswaKelas($id_rombel){
+			$query=$this->db->query("select * from riwayat_kelas rk, mst_siswa ms, rombongan_belajar rb where rk.id_rombel "
+                                . "= rb.id_rombel and rk.id_siswa = ms.id_siswa and rb.id_rombel = '$id_rombel' ");
+			return $query->result();
+		}*/
+               
+                function getList_MapelKurikulumSiswa($username, $kurikulum){
+			$query=$this->db->query("select * from riwayat_kelas rk, "
+                                . "mst_siswa ms, rombongan_belajar rb, "
+                                . "mst_tahun_ajar mta , mengajar m, mst_kurikulum mk, mst_mapel mm "
+                                . "where ms.id_siswa = rk.id_siswa and ms.nisn_siswa = '$username' "
+                                . "and rb.id_rombel = rk.id_rombel and mta.id_tahun_ajar = "
+                                . "rb.id_tahun_ajar and mta.id_kurikulum = mk.id_kurikulum "
+                                . "and m.id_rombel = rk.id_rombel and m.id_rombel = rb.id_rombel "
+                                . "and mm.kode_mapel = m.kode_mapel "
+                                . "and mk.nama_kurikulum like '%$kurikulum%'");
+			return $query->result();
+		}
+                
+
 
 
 		function getIdRombel(){

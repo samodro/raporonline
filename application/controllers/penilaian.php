@@ -209,32 +209,91 @@ class Penilaian extends CI_Controller {
     	//load model m_nilai->doAssesment_ByTeacher()
     		//proses INSERT NILAI
     }
+    public function PenilainGuruMataPelajaran(){
+               
+        
+        $data["listSiswa"]=$this->m_rombel->getList_siswaKelas($this->uri->segment(3));
+        $data["rombel"] = $this->m_rombel->getDataRombelAll_ById($this->uri->segment(3));
+        $data['mapel1'] = $this->m_mengajar->getMapel2($this->username);
+                
+                
+        $data["mapel"] = $this->m_mapel->getDataMapel($this->uri->segment(6));
+                
+               
+         
+        $data["guru"] = $this->m_ptk->getDataPtk($this->username);
+        
+        
+        $data["penilaian"] = $this->m_penilaian->getListIndikator_penilaianparent($data["mapel"]["KODE_MAPEL"], $this->uri->segment(5), $this->uri->segment(4)); 
+        $data["level"] = $this->uri->segment(5);
+        $data["kode"] = $this->uri->segment(4);
+        
+        
+        $this->load->view('ptk/header');
+        
+        if($this->akses_level=='wali kelas')
+        {
+            $this->load->view('ptk/menuWaliKelas',$data);
+        }
+        else if($this->akses_level=='guru mata pelajaran')
+        {
+            $this->load->view('ptk/menuguru',$data);
+        }
+        
+        $this->load->view('ptk/penilaian_olehGurunew',$data);
+        $this->load->view('ptk/footer');
+    }
+    
 
     public function do_assesment_by_student(){
 		$this->load->view('siswa/headerSiswa');
-		$this->load->view('siswa/menuSiswa');
+		//$this->load->view('ptk/header');
 		
-		$data['dataSiswa']= $this->m_pd->get_data_diri_siswa($this->username);
+		$data['dataSiswa']= $this->m_pd->get_data_diri_siswa($this->username); 
+                $data["mapel2013"] = $this->m_rombel->getList_MapelKurikulumSiswa($this->username, '2013');                
+                
+                $data["mapel"] = $this->m_mapel->getDataMapel($this->uri->segment(4));
+                $data["rombel"] = $this->m_rombel->getDataRombelAll_ById($this->uri->segment(5));
+                $data["level"] = $this->uri->segment(6);
+                $data["kode"] = $this->uri->segment(7);
+                $data["listSiswa"]=$this->m_rombel->getList_siswaKelas($this->uri->segment(5));
+                
+                //3 if, 4 mapel,5 rombel, 6 level, 7 kode jenis penilaian                
+                if($this->uri->segment(3)==0)
+                {
+                    $data['cek'] = true;
+                    $peni = $this->m_penilaian->getListDiriSendiriAntarTeman($this->uri->segment(4));      
+                    //var_dump($peni);
+                    //$level = 5;                    
+                    for($i =0 ; $i<count($peni); $i++)
+                    {
+                        
+                        $level = $peni[$i]->LEVEL_PENILAIAN;
+                        
+                        $temp[] = $this->m_penilaian->getListIndikator_penilaianparent($this->uri->segment(4), $level-1, substr($peni[$i]->KODE_JENIS_PENILAIAN,0,($level*2)-2)); 
+                        
+                    }
+                    $data["penilaian"] = $temp;
+                    $data["level"] = $level-1;
+                    //array_push($data["penilaian"],$this->m_penilaian->getListIndikator_penilaianparent($this->uri->segment(4), $level-1, substr($peni[$i]->KODE_JENIS_PENILAIAN,0,($level*2)-2)));
+                    //echo $level;
+                    
+                }
+                else
+                {
+                    $data['cek'] = false;
+                    $data["penilaian"] = $this->m_penilaian->getListIndikator_penilaianparent($this->uri->segment(4), $this->uri->segment(6), $this->uri->segment(7)); 
+                }
+                
+                
+                //var_dump($data["penilaian"]);
+                
+                
+                
+		//
 
-    	//$kurikulum = load model m_nilai->getKurikulumType()
-    		// -- u/ cek KELAS tersebut menggunakan kurikulum apa
-    			//if $kurikulum == 2013
-    				// $listmapel = redirect cntrlr penilaian/getMapelList($kurikulum[2013])
-    				// $pilihKI = redirect cntrlr penilaian/getKIList($mst_id, $kurikulum[2013])
-    				// $pilihMetode = redirect cntrlr penilaian/getMetodeList($mst_id, $kurikulum[2013])
-    				// $pilihIndikator = redirect cntrlr penilaian/getIndikatorList($mst_id, $kurikulum[2013])
-    				// $pilihKD = redirect cntrlr penilaian/getKDList($mst_id, $kurikulum[2013])
-
-    	//load model m_nilai->getListStudent_inClass()
-    		// -- u/mendapatkan list anak 1 kelas
-    		// jadi list siswa ini belum akan muncul kalau tipe penilaian blm dipilih
-
-    	//load model m_nilai->doAssesment_ByTeacher()
-    		//proses INSERT NILAI pada setiap KD. jadi jika ada 2 KD yg dipilih,
-			//maka record 2 nilai
-		
-
-		$this->load->view('siswa/penilaianSiswa', $data);
+                $this->load->view('siswa/menuSiswa',$data);
+		$this->load->view('siswa/penilaianSiswa_1', $data);
 		$this->load->view('siswa/footerSiswa');//
 	}
 
@@ -243,7 +302,7 @@ class Penilaian extends CI_Controller {
         $data['guru'] = $this->m_ptk->getDataDiriWaliKelas($this->username);
         $data['mapel'] = $this->m_mengajar->getMapel($this->username);
         $data['id_rombel']= $this->m_rombel->getRombel_ByWaliKelas($this->username);
-        
+        $data['mapel1'] = $this->m_mengajar->getMapel2($this->username);
         $data['rombel'] = $this->m_rombel->getDataRombelAll_ById($data['id_rombel']['ID_ROMBEL']);
         $this->load->view('ptk/menuWaliKelas', $data);
         $data['DaftarSiswa_WaliKelas'] = $this->m_rombel->getList_siswaKelas( $data['id_rombel']['ID_ROMBEL']);        
@@ -258,6 +317,7 @@ class Penilaian extends CI_Controller {
         $this->load->view('ptk/header');
         $data['guru'] = $this->m_ptk->getDataDiriWaliKelas($this->username);
         $data['mapel'] = $this->m_mengajar->getMapel($this->username);
+        $data['mapel1'] = $this->m_mengajar->getMapel2($this->username);
         $data["id_rombel"]= $this->m_rombel->getRombel_ByWaliKelas($this->username);
         $data['rombel'] = $this->m_rombel->getDataRombelAll_ById($data['id_rombel']['ID_ROMBEL']);
         $this->load->view('ptk/menuWaliKelas', $data);
@@ -271,6 +331,7 @@ class Penilaian extends CI_Controller {
         $this->load->view('ptk/header');
         $data['guru'] = $this->m_ptk->getDataDiriWaliKelas($this->username);
         $data['mapel'] = $this->m_mengajar->getMapel($this->username);
+        $data['mapel1'] = $this->m_mengajar->getMapel2($this->username);
         $data["id_rombel"]= $this->m_rombel->getRombel_ByWaliKelas($this->username);
         $data['rombel'] = $this->m_rombel->getDataRombelAll_ById($data['id_rombel']['ID_ROMBEL']);
         $this->load->view('ptk/menuWaliKelas', $data);
@@ -283,6 +344,7 @@ class Penilaian extends CI_Controller {
         $this->load->view('ptk/header');
         $data['guru'] = $this->m_ptk->getDataDiriWaliKelas($this->username);
         $data['mapel'] = $this->m_mengajar->getMapel($this->username);
+        $data['mapel1'] = $this->m_mengajar->getMapel2($this->username);
         $data["id_rombel"]= $this->m_rombel->getRombel_ByWaliKelas($this->username);
         $data['rombel'] = $this->m_rombel->getDataRombelAll_ById($data['id_rombel']['ID_ROMBEL']);
         $this->load->view('ptk/menuWaliKelas', $data);
@@ -345,40 +407,7 @@ class Penilaian extends CI_Controller {
     
     /*alternatif*/
     
-    public function PenilainGuruMataPelajaran(){
-               
-        
-        $data["listSiswa"]=$this->m_rombel->getList_siswaKelas($this->uri->segment(3));
-        $data["rombel"] = $this->m_rombel->getDataRombelAll_ById($this->uri->segment(3));
-        $data['mapel1'] = $this->m_mengajar->getMapel2($this->username);
-                
-                
-        $data["mapel"] = $this->m_mapel->getDataMapel($this->uri->segment(6));
-                
-               
-         
-        $data["guru"] = $this->m_ptk->getDataPtk($this->username);
-        
-        
-        $data["penilaian"] = $this->m_penilaian->getListIndikator_penilaianparent($data["mapel"]["KODE_MAPEL"], $this->uri->segment(5), $this->uri->segment(4)); 
-        $data["level"] = $this->uri->segment(5);
-        $data["kode"] = $this->uri->segment(4);
-        
-        
-        $this->load->view('ptk/header');
-        
-        if($this->akses_level=='wali kelas')
-        {
-            $this->load->view('ptk/menuWaliKelas',$data);
-        }
-        else if($this->akses_level=='guru mata pelajaran')
-        {
-            $this->load->view('ptk/menuguru',$data);
-        }
-        
-        $this->load->view('ptk/penilaian_olehGurunew',$data);
-        $this->load->view('ptk/footer');
-    }
+    
     
     public function save1Nilai()
     {
@@ -533,6 +562,60 @@ class Penilaian extends CI_Controller {
         }
         
         redirect(base_url()."index.php/penilaian/PenilainGuruMataPelajaran/".$this->input->post('id_rombel')."/".$this->input->post('kode')."/".$this->input->post('level')."/".$this->input->post('kode_mapel'));
+    }
+    
+    public function saveNilai3()
+    {
+        $listSiswa=$this->m_rombel->getList_siswaKelas($this->input->post('id_rombel'));
+        //echo $this->input->post('state');
+        foreach ($listSiswa as $a)
+        {
+            if(!$this->input->post('state'))
+            {
+                if($a->NISN_SISWA!=$this->username)
+                {
+                    continue;
+                }
+            }
+            else
+            {
+                if($a->NISN_SISWA==$this->username)
+                {
+                    continue;
+                }
+
+            }
+            
+            echo "1<br/>";
+            
+            $nilai = $this->m_nilai->getNilaibyKodeandIdandUser($this->input->post('kode_penilaian'), $a->ID_SISWA, $this->username);
+            $riwayat = $this->m_nilai->getRiwayat($a->ID_SISWA, $this->input->post('id_rombel'));
+            
+            //var_dump($nilai);
+           
+            if($nilai==null)
+            {
+                $data = array(
+				'ID_NILAI' => '',
+				'ID_RIWAYAT' => $riwayat["ID_RIWAYAT"],
+                                'KODE_PENILAIAN' => $this->input->post('kode_penilaian'),
+				'TANGGAL' =>  date('Y-m-d'),
+                                'USER' => $this->username,
+				'NILAI' => $this->input->post($a->ID_SISWA)
+			);
+                $this->m_nilai->insert_nilai($data);
+            }
+            else
+            {
+                $nilai["NILAI"] =  $this->input->post($a->ID_SISWA);
+                $this->m_nilai->edit_nilainew($nilai);
+            }
+             
+             
+        }
+        //do_assesment_by_student/1/1307/5/6/0101030101
+        //3 if, 4 mapel,5 rombel, 6 level, 7 kode jenis penilaian 
+        redirect(base_url()."index.php/penilaian/do_assesment_by_student/1/".$this->input->post('kode_mapel')."/".$this->input->post('id_rombel')."/".$this->input->post('level')."/".$this->input->post('kode'));
     }
     
     public function saveNilaiAkhlak()

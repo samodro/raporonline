@@ -5,41 +5,33 @@
         <group>
             <file>file:/C:/xampp/htdocs/_meong3/application/controllers/ptk.php</file>
             <file>file:/C:/xampp/htdocs/_meong3/application/views/ptk/DaftarSiswa_WaliKelas.php</file>
-            <file>file:/C:/xampp/htdocs/_meong3/application/views/ptk/penilaian_olehGuru.php</file>
-            <file>file:/C:/xampp/htdocs/_meong3/application/controllers/mapel.php</file>
-            <file>file:/C:/xampp/htdocs/_meong3/asset/dispendik/js/cobatab.js</file>
+            <file>file:/C:/xampp/htdocs/_meong3/asset/dispendik/css/cobatab.css</file>
+            <file>file:/C:/xampp/htdocs/_meong3/application/views/login.php</file>
             <file>file:/C:/xampp/htdocs/_meong3/application/models/m_mengajar.php</file>
+            <file>file:/C:/xampp/htdocs/_meong3/application/views/siswa/penilaianSiswa_1.php</file>
             <file>file:/C:/xampp/htdocs/_meong3/application/controllers/absensi.php</file>
-            <file>file:/C:/xampp/htdocs/_meong3/application/views/ptk/indikator2013.php</file>
-            <file>file:/C:/xampp/htdocs/_meong3/application/models/m_mapel.php</file>
             <file>file:/C:/xampp/htdocs/_meong3/application/views/ptk/penilaian_olehGurunew.php</file>
             <file>file:/C:/xampp/htdocs/_meong3/application/views/ptk/DataKenaikanKelas_siswa.php</file>
             <file>file:/C:/xampp/htdocs/_meong3/application/views/ptk/kehadiran_siswa.php</file>
             <file>file:/C:/xampp/htdocs/_meong3/application/controllers/pesertadidik.php</file>
             <file>file:/C:/xampp/htdocs/_meong3/application/controllers/Users.php</file>
-            <file>file:/C:/xampp/htdocs/_meong3/application/views/siswa/berandaSiswa.php</file>
             <file>file:/C:/xampp/htdocs/_meong3/application/controllers/penilaian.php</file>
+            <file>file:/C:/xampp/htdocs/_meong3/application/views/siswa/berandaSiswa.php</file>
             <file>file:/C:/xampp/htdocs/_meong3/application/views/ptk/DataPrestasi_siswa.php</file>
             <file>file:/C:/xampp/htdocs/_meong3/application/views/ptk/header.php</file>
-            <file>file:/C:/xampp/htdocs/_meong3/application/views/ptk/penilaianGuru.php</file>
-            <file>file:/C:/xampp/htdocs/_meong3/application/models/m_ptk.php</file>
             <file>file:/C:/xampp/htdocs/_meong3/application/views/ptk/DKN_siswa.php</file>
-            <file>file:/C:/xampp/htdocs/_meong3/application/views/ptk/AkhlakdanKepribadian_siswa.php</file>
+            <file>file:/C:/xampp/htdocs/_meong3/application/models/m_kurikulum.php</file>
             <file>file:/C:/xampp/htdocs/_meong3/application/controllers/rombel.php</file>
             <file>file:/C:/xampp/htdocs/_meong3/application/models/m_rombel.php</file>
             <file>file:/C:/xampp/htdocs/_meong3/application/models/m_pd.php</file>
-            <file>file:/C:/xampp/htdocs/_meong3/application/views/ptk/menuguru.php</file>
             <file>file:/C:/xampp/htdocs/_meong3/application/views/ptk/menuWaliKelas.php</file>
             <file>file:/C:/xampp/htdocs/_meong3/application/views/ptk/DataEkskul_siswa.php</file>
             <file>file:/C:/xampp/htdocs/_meong3/application/models/m_nilai.php</file>
-            <file>file:/C:/xampp/htdocs/_meong3/application/views/welcome_message.php</file>
+            <file>file:/C:/xampp/htdocs/_meong3/application/views/siswa/headerSiswa.php</file>
             <file>file:/C:/xampp/htdocs/_meong3/application/views/siswa/penilaianSiswa.php</file>
             <file>file:/C:/xampp/htdocs/_meong3/application/views/ptk/pilihRombel.php</file>
-            <file>file:/C:/xampp/htdocs/_meong3/application/config/routes.php</file>
             <file>file:/C:/xampp/htdocs/_meong3/application/views/siswa/menuSiswa.php</file>
-            <file>file:/C:/xampp/htdocs/_meong3/application/views/ptk/footer.php</file>
             <file>file:/C:/xampp/htdocs/_meong3/application/models/m_penilaian.php</file>
-            <file>file:/C:/xampp/htdocs/_meong3/application/models/m_deskripsi_nilai.php</file>
         </group>
     </open-files>
 </project-private>

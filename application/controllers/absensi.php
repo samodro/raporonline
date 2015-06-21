@@ -81,6 +81,7 @@ class Absensi extends CI_Controller
        	$data['guru'] = $this->m_ptk->getDataDiriWaliKelas($this->username);
         $data['mapel'] = $this->m_mengajar->getMapel($this->username);
         $data["id_rombel"]= $this->m_rombel->getRombel_ByWaliKelas($this->username);
+        $data['mapel1'] = $this->m_mengajar->getMapel2($this->username);
         $data['rombel'] = $this->m_rombel->getDataRombelAll_ById($data['id_rombel']['ID_ROMBEL']);
        	$data['jenisAbsensi'] = $this->m_absensi->getAll_DataAbsensi();
 		$this->load->view('ptk/menuWaliKelas', $data);

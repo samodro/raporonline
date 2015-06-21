@@ -120,9 +120,11 @@ class Pesertadidik extends CI_Controller
 	public function index() 
 	{
 		$this->load->view('siswa/headerSiswa');
-		$this->load->view('siswa/menuSiswa');
+		
 		$data["siswa"]= $this->m_pd->get_data_diri_siswa($this->username);
-				
+		$data["mapel2013"] = $this->m_rombel->getList_MapelKurikulumSiswa($this->username, '2013');
+                //var_dump($data["siswa"]);
+                $this->load->view('siswa/menuSiswa', $data);
 		$this->load->view('siswa/berandaSiswa', $data);
 		$this->load->view('siswa/footerSiswa');
 	}	

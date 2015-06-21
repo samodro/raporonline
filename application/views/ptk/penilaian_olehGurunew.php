@@ -173,6 +173,12 @@ body
 		}
 		.btn-info:hover { background-color: rgb(35, 71, 129);}
     </style>
+    
+    <style>
+        th {
+            background-color: #3C8DBC;
+        } 
+    </style>
 
 </head>
 
@@ -259,15 +265,30 @@ body
 					
 				</ul>
                                 <br/>
-                                
+                                <strong>
+                                <?php if ($level==2){
+                                    echo "Pilih Aspek Penilaian";
+                                }
+                                else if($level ==3)
+                                {
+                                    echo "Pilih Metode Penilaian";
+                                }
+                                else if($level ==4)
+                                {
+                                    echo "Pilih Indikator Penilaian";
+                                }
+                                ?>
+                                </strong>
+                                <br/>
+                                <br/>
 				<!-- try tab -->
                                 <ul class="tabs" id="pilihKI">
                                     
                                         <?php for ($i=0; $i<count($penilaian); $i++): ?>
-                                   <a style="color: inherit;" href="<?php echo base_url()."index.php/penilaian/PenilainGuruMataPelajaran/".$rombel["ID_ROMBEL"]."/". $penilaian[$i]->KODE_JENIS_PENILAIAN."/".($level+1)."/".$mapel["KODE_MAPEL"]?>"><li class="tab-link tab-root " data-tab="tab-<?php echo $i+1; ?>">  <?php echo $penilaian[$i]->INDIKATOR_PENILAIAN;?>  </li></a>
+                                    <a style="color: inherit;" href="<?php echo base_url()."index.php/penilaian/PenilainGuruMataPelajaran/".$rombel["ID_ROMBEL"]."/". $penilaian[$i]->KODE_JENIS_PENILAIAN."/".($level+1)."/".$mapel["KODE_MAPEL"]?>"><li class="tab-link tab-root " data-tab="tab-<?php echo $i+1; ?>"> <strong> <font  size="4"><?php echo $penilaian[$i]->INDIKATOR_PENILAIAN;?> </font> </strong> </li></a>
                                         <?php endfor; ?>					
 					<?php if($level==2): ?>
-                                        <li class="tab-link tab-root " data-tab="tab-<?php echo $i+1; ?>">Hasil Akhir</li>
+                                    <li class="tab-link tab-root " data-tab="tab-<?php echo $i+1; ?>"><strong> <font  size="4">Hasil Akhir</font></strong></li>
                                         <?php endif; ?>
 				</ul>
                                 
@@ -285,16 +306,93 @@ body
                                 <div class="row-fluid sortable ">
 
 									<div class=" span12">
-										
-											<table class="table table-bordered">
+                                                                        <?php $c = 2;
+                                                                                $state2 = false;
+                                                                                while(1): 
+
+                                                                                $s = $ci->m_penilaian->getPenilaian($mapel["KODE_MAPEL"],substr($kode, 0, $c));                                                                                                                     
+                                                                                if($c==10) break;
+                                                                                if(strpos($s["INDIKATOR_PENILAIAN"],'Sendiri') || strpos($s["INDIKATOR_PENILAIAN"],'Teman') )
+                                                                                {
+                                                                                    $state = true;
+                                                                                }
+                                                                                if(strpos($s["INDIKATOR_PENILAIAN"],'Teman') )
+                                                                                {
+                                                                                    $state2 = true;
+                                                                                }
+                                                                                $c += 2;
+                                                                                endwhile;
+                                                                                ?>
+											<table class="table table-bordered" >
+                                                                                            <?php if($state && $state2): ?>
+                                                                                            <thead >
+													  <tr>
+														  <th style="">No</th>
+														  <th style="">Nama Siswa</th>
+														  <th style="">Nilai Rata-Rata</th>  
+														                                     
+													  </tr>
+												  </thead>   
+												  <tbody>
+												  	<?php
+														$no = 1;
+                                                                                                                $ci->load->model('m_nilai');
+														?>
+                                                                                                      
+                                                                                                                <input type="hidden" name="kode_penilaian" value="<?php echo $l_penilaian["KODE_PENILAIAN"];?>">
+                                                                                                                <input type="hidden" name="id_rombel" value="<?php echo $rombel["ID_ROMBEL"];?>">
+                                                                                                                <input type="hidden" name="level" value="<?php echo $level;?>">
+                                                                                                                <input type="hidden" name="kode" value="<?php echo $kode;?>">
+                                                                                                                <input type="hidden" name="kode_mapel" value="<?php echo $mapel["KODE_MAPEL"];?>">
+														<?php foreach ($listSiswa as $a)	{
+                                                                                                                 $siswa = $ci->m_nilai->getNilaibyKodeandIdTeman($l_penilaian["KODE_PENILAIAN"], $a->ID_SISWA); 
+                                                                                                                //var_dump($siswa);
+                                                                                                                $total = 0;
+                                                                                                                for($z = 0; $z<count($siswa); $z++)
+                                                                                                                {
+                                                                                                                    $total += $siswa[$z]->NILAI;
+                                                                                                                }
+                                                                                                                //echo $total."<br/>";
+                                                                                                                $selisih = count($listSiswa) - count($siswa) - 1;
+                                                                                                                //echo $selisih."<br/>";
+                                                                                                                $total += $selisih * 4;
+                                                                                                                //echo $total."<br/>";
+                                                                                                                $total /= count($listSiswa)-1;
+                                                                                                                
+                                                                                                                 if (strpos($mapel["NAMA_MAPEL"],'Agama') !== false) {
+                                                                                                                        if(strpos($mapel["NAMA_MAPEL"],$a->AGAMA_SISWA) !== false)  
+                                                                                                                        {
+                                                                                                                            
+                                                                                                                        }
+                                                                                                                        else
+                                                                                                                        {
+                                                                                                                           continue;     
+                                                                                                                        }                                                                                                                                                                                                                                                                   
+                                                                                                                    }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+                                                                                                                   
+                                                                                                                 ?>
+													<tr>
+														
+														<td><?php echo $no++ ?></td>
+														<td class="center"><?php echo $a->NAMA_SISWA; ?></td>
+														<td class="center">
+																 <input class="input-xlarge focused" id="focusedInput" name="<?php echo $a->ID_SISWA?>" type="number" min="0" max="100" value="<?php echo $total;?>">
+														</td> 														
+                                                                                                                
+													</tr>   
+													<?php 
+                                                                                                        
+                                                                                                                } ?>               
+												  </tbody>
+                                                                                            <?php else: ?>
 												  <thead>
 													  <tr>
-														  <th>No</th>
-														  <th>Nama Siswa</th>
-														  <th>1</th>  
-														  <th>2</th>  
-														  <th>3</th> 
-														  <th>4</th>                                     
+														  <th style="">No</th>
+														  <th style="">Nama Siswa</th>
+														  <th style="width:15%; ">1 (Sangat Kurang)</th>  
+														  <th style="width:15%; ">2 (Kurang)</th>  
+														  <th style="width:15%;">3 (Baik)</th> 
+														  <th style="width:15%;">4 (Sangat Baik)</th>                                                      
 													  </tr>
 												  </thead>   
 												  <tbody>
@@ -310,7 +408,7 @@ body
                                                                                                                 <input type="hidden" name="kode_mapel" value="<?php echo $mapel["KODE_MAPEL"];?>">
 														<?php foreach ($listSiswa as $a)	{
                                                                                                                  $siswa = $ci->m_nilai->getNilaibyKodeandId($l_penilaian["KODE_PENILAIAN"], $a->ID_SISWA); 
-                                                                                                                
+                                                                                                                //var_dump($siswa);
                                                                                                                  if (strpos($mapel["NAMA_MAPEL"],'Agama') !== false) {
                                                                                                                         if(strpos($mapel["NAMA_MAPEL"],$a->AGAMA_SISWA) !== false)  
                                                                                                                         {
@@ -323,22 +421,9 @@ body
                                                                                                                     }
                                                                                                                     
                                                                                                                     
-                                                                                                                    $c = 2;
-                                                                                                                    $state2 = false;
-                                                                                                                    while(1): 
-
-                                                                                                                    $s = $ci->m_penilaian->getPenilaian($mapel["KODE_MAPEL"],substr($kode, 0, $c));                                                                                                                     
-                                                                                                                    if($c==10) break;
-                                                                                                                    if(strpos($s["INDIKATOR_PENILAIAN"],'Sendiri') || strpos($s["INDIKATOR_PENILAIAN"],'Teman') )
-                                                                                                                    {
-                                                                                                                        $state = true;
-                                                                                                                    }
-                                                                                                                    if(strpos($s["INDIKATOR_PENILAIAN"],'Teman') )
-                                                                                                                    {
-                                                                                                                        $state2 = true;
-                                                                                                                    }
-                                                                                                                    $c += 2;
-                                                                                                                    endwhile;
+                                                                                                                    
+                                                                                                                    
+                                                                                                                    
                                                                                                                     //if($state) echo "AAA";
                                                                                                                     
                                                                                                                  //echo $l_penilaian["KODE_PENILAIAN"];
@@ -363,12 +448,14 @@ body
 														</td>
 														<td class="center" >
 																  <input type="radio" style="margin-left:0px;" name="<?php echo $a->ID_SISWA?>" id="optionsRadios" value="4" <?php if($siswa!=null && $siswa["NILAI"]==4) echo "checked" ; if($siswa==null) echo "checked" ;?> <?php if($state==true) echo "disabled"; ?> >															
-														</td>                               
+														</td>    
+                                                                                                                
 													</tr>   
 													<?php 
                                                                                                         
                                                                                                                 } ?>               
 												  </tbody>
+                                                                                                  <?php endif;?>
 											 </table>      
 										
 									</div><!--/span-->

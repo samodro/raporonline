@@ -13,7 +13,21 @@
 <div id='cssmenu'>
 <ul>
    <li><a href="index.php/pesertadidik/index"><span>Beranda</span></a></li>
-   <li><a href="index.php/penilaian/do_assesment_by_student"><span>Penilaian Antar Teman dan Diri Sendiri</span></a></li>
+   <?php if(isset($mapel2013) && count($mapel2013)>0): ?>
+   <li class="dropdown">
+        <a data-toggle="dropdown" href="#">
+           Penilaian Antar Teman dan Diri Sendiri
+           <span class="caret"></span>
+
+        </a>
+       
+        <ul class="dropdown-menu">
+            <?php for($i=0; $i<count($mapel2013); $i++): ?>                         
+           <li><a href="index.php/penilaian/do_assesment_by_student/0/<?php echo $mapel2013[$i]->KODE_MAPEL;?>/<?php echo $mapel2013[$i]->ID_ROMBEL;?>"><i class=""></i><?php echo $mapel2013[$i]->NAMA_MAPEL; ?></a></li>                        
+           <?php endfor; ?>
+        </ul>
+    </li>
+   <?php endif; ?>
    <li class='last'><a href="index.php/pesertadidik/learning_report">Rekap hasil belajar</a></
 </ul>
 </div>
